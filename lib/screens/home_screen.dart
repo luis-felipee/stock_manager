@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/product.dart';
 import '../services/product_service.dart';
@@ -42,6 +43,30 @@ class _HomeScreenState extends State<HomeScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao carregar produtos: $e')),
       );
+    }
+  }
+
+  Future<void> _logout() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Sair da conta'),
+        content: const Text('Deseja realmente sair do StockManager?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Sair'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      await FirebaseAuth.instance.signOut();
     }
   }
 
@@ -112,7 +137,13 @@ class _HomeScreenState extends State<HomeScreen> {
           'StockManager',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: false,
+        actions: [
+          IconButton(
+            tooltip: 'Sair da conta',
+            onPressed: _logout,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
 
       floatingActionButton: FloatingActionButton.extended(

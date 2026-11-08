@@ -1,117 +1,139 @@
-# StockManager 📦
+# StockManager
 
-Aplicativo de gerenciamento de estoque desenvolvido em Flutter e Dart, com integração ao banco de dados SQLite.
+Aplicativo de gerenciamento de estoque desenvolvido em Flutter e Dart como projeto acadêmico.
 
-O projeto tem como objetivo facilitar o controle de produtos, permitindo cadastrar, visualizar, editar e excluir itens de um estoque.
+## Funcionalidades
 
-## 🎯 Objetivo
+### Autenticação
+- Cadastro de usuários com nome, e-mail e senha.
+- Login com e-mail e senha.
+- Logout.
+- Proteção das telas para usuários não autenticados.
+- Validação de campos e tratamento de erros.
+- Autenticação gerenciada pelo Firebase Authentication.
 
-Desenvolver uma aplicação mobile para gerenciamento de estoque, aplicando conceitos de desenvolvimento de software, persistência de dados, operações CRUD, organização de código e navegação entre telas.
+### Gerenciamento de estoque
+- Cadastro de produtos.
+- Listagem de produtos.
+- Edição de produtos.
+- Exclusão de produtos.
+- Controle de quantidade em estoque.
+- Consulta de informações dos produtos.
 
-## 🚀 Funcionalidades
+### Dados dos produtos
+Cada produto possui:
+- ID
+- Nome
+- SKU
+- Categoria
+- Quantidade
+- Preço de compra
+- Preço de venda
 
-- **Cadastro de produtos:** registro de novos produtos com nome, SKU, categoria, quantidade e preços.
-- **Listagem de produtos:** visualização dos produtos cadastrados.
-- **Edição de produtos:** atualização das informações dos produtos existentes.
-- **Exclusão de produtos:** remoção de produtos do estoque.
-- **Controle de estoque:** acompanhamento das quantidades disponíveis.
-- **Validação de formulários:** verificação de campos obrigatórios e valores numéricos.
-- **Verificação de SKU:** impedimento de cadastro de produtos com códigos duplicados.
-- **Persistência de dados:** armazenamento das informações em banco de dados SQLite.
+## Tecnologias utilizadas
 
-## 🛠️ Tecnologias utilizadas
+- Flutter
+- Dart
+- SQLite
+- Firebase Authentication
+- Firebase Core
+- sqflite
+- sqflite_common_ffi_web
 
-- **Flutter:** framework utilizado para o desenvolvimento da aplicação.
-- **Dart:** linguagem de programação.
-- **SQLite:** banco de dados para armazenamento das informações.
-- **sqflite:** integração com SQLite.
-- **sqflite_common_ffi_web:** suporte ao banco de dados na versão Web.
-- **Path:** manipulação de caminhos de arquivos.
-
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ```text
 lib/
 ├── main.dart
+├── firebase_options.dart
 ├── database/
 │   └── database_helper.dart
 ├── models/
 │   └── product.dart
 ├── screens/
 │   ├── home_screen.dart
+│   ├── login_screen.dart
+│   ├── register_screen.dart
 │   └── product_form_screen.dart
 └── services/
+    ├── auth_service.dart
     └── product_service.dart
 ```
 
-### Organização
-
-- **database:** configuração e gerenciamento do banco de dados.
-- **models:** definição da estrutura dos dados dos produtos.
-- **screens:** telas e componentes da interface.
-- **services:** implementação das operações de acesso e manipulação dos dados.
-- **main.dart:** ponto de entrada da aplicação.
-
-## ⚙️ Como executar o projeto
+## Como executar o projeto
 
 ### Pré-requisitos
 
-- Flutter SDK instalado.
-- Dart SDK.
-- Visual Studio Code ou Android Studio.
+- Flutter instalado.
+- Dart instalado.
+- Node.js instalado (para configurar o Firebase CLI).
+- Conta Google para acessar o Firebase.
 
 ### Instalação
 
-1. Clone o repositório:
+Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/luis-felipee/stock_manager.git
 ```
 
-2. Entre na pasta do projeto:
+Entre na pasta:
 
 ```bash
 cd stock_manager
 ```
 
-3. Instale as dependências:
+Instale as dependências:
 
 ```bash
 flutter pub get
 ```
 
-4. Para executar no navegador:
+### Configuração do Firebase
+
+O projeto utiliza Firebase Authentication para gerenciar o cadastro e login dos usuários.
+
+Para configurar o Firebase em outro ambiente:
+
+1. Crie um projeto no Firebase Console.
+2. Ative o método de autenticação por e-mail e senha.
+3. Instale o Firebase CLI e faça login.
+4. Instale o FlutterFire CLI.
+5. Execute:
+
+```bash
+flutterfire configure
+```
+
+6. Selecione o projeto Firebase e as plataformas desejadas.
+
+### Executar no navegador
+
+Configure o SQLite para Web:
 
 ```bash
 dart run sqflite_common_ffi_web:setup
+```
+
+Execute:
+
+```bash
 flutter run -d chrome
 ```
 
-5. Para executar em um dispositivo ou emulador Android:
+### Executar no Android
 
 ```bash
 flutter run
 ```
 
-## 💾 Banco de dados
+## Banco de dados
 
-O projeto utiliza SQLite para armazenar os dados dos produtos.
+O aplicativo utiliza SQLite para persistência dos produtos.
 
-A tabela `products` possui os seguintes campos:
+A tabela `products` armazena os dados dos produtos cadastrados, incluindo nome, SKU, categoria, quantidade e preços.
 
-| Campo | Tipo | Descrição |
-|---|---|---|
-| id | INTEGER | Identificador único |
-| name | TEXT | Nome do produto |
-| sku | TEXT | Código de identificação único |
-| category | TEXT | Categoria do produto |
-| quantity | INTEGER | Quantidade em estoque |
-| purchase_price | REAL | Preço de compra |
-| sale_price | REAL | Preço de venda |
-| created_at | TEXT | Data de criação |
+O campo SKU possui restrição de unicidade para evitar produtos duplicados.
 
-O campo SKU possui uma restrição de unicidade (`UNIQUE`), impedindo o cadastro de produtos com o mesmo código.
+O Firebase Authentication é responsável pelo gerenciamento das contas e sessões dos usuários.
 
-## 📌 Considerações finais
-
-O StockManager foi desenvolvido como projeto acadêmico, com o propósito de aplicar conhecimentos de desenvolvimento de aplicativos, integração com banco de dados, operações CRUD e organização de código utilizando Flutter e Dart.
